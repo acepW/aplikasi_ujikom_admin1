@@ -17,11 +17,11 @@ class _PengaduanScreensState extends State<PengaduanScreens> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       DocumentSnapshot userData = await FirebaseFirestore.instance
-          .collection('users')
+          .collection('akun')
           .doc(user.uid)
           .get();
       UserModel userModel = UserModel.fromSnap(userData);
-      return  PengaduanScreensPetugas();
+      return PengaduanScreensPetugas();
     } else {
       return Container();
     }
