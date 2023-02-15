@@ -121,7 +121,7 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
             key: _formKey,
             child: Column(
               children: [
-                Text("Lakukan registrasi kamu disini",
+                Text("Lakukan registrasi Petugas disini",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
@@ -157,7 +157,7 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       hintText: "Email",
-                      icon: Icon(Icons.email),
+                     
                       hintStyle: GoogleFonts.poppins(
                           textStyle: const TextStyle(
                               color: Colors.black,
@@ -207,9 +207,7 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       hintText: "Password",
-                      icon: Icon(
-                        Icons.password,
-                      ),
+                     
                       hintStyle: GoogleFonts.poppins(
                           textStyle: const TextStyle(
                               color: Colors.black,
@@ -243,7 +241,7 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       hintText: "Nama Lengkap",
-                      icon: Icon(Icons.people),
+                    
                       hintStyle: GoogleFonts.poppins(
                           textStyle: const TextStyle(
                               color: Colors.black,
@@ -278,7 +276,7 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       hintText: "Username",
-                      icon: Icon(Icons.people),
+                     
                       hintStyle: GoogleFonts.poppins(
                           textStyle: const TextStyle(
                               color: Colors.black,
