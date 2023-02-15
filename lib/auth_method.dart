@@ -13,10 +13,10 @@ class AuthMethods {
 
   // get user details
   Future<model.UserModel> getUserDetails() async {
-     User currentUser = _auth.currentUser!;
+    User currentUser = _auth.currentUser!;
 
     DocumentSnapshot documentSnapshot =
-        await _firestore.collection('users').doc(currentUser.uid).get();
+        await _firestore.collection('akun').doc(currentUser.uid).get();
 
     return model.UserModel.fromSnap(documentSnapshot);
   }
@@ -59,7 +59,7 @@ class AuthMethods {
 
         // adding user in our database
         await _firestore
-            .collection("users")
+            .collection("akun")
             .doc(cred.user!.uid)
             .set(_user.toJson());
 

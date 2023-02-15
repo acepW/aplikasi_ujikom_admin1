@@ -48,7 +48,7 @@ class _LoginScreensState extends State<LoginScreens> {
             password: _passTextController.text.trim());
 
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => BottomBarScreen(),
+          builder: (context) => HomeScreens(),
         ));
         print('Successfully logged in');
       } on FirebaseException catch (error) {
@@ -72,7 +72,6 @@ class _LoginScreensState extends State<LoginScreens> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

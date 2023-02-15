@@ -29,19 +29,14 @@ class DetailAduanPetugas extends StatefulWidget {
 class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
   final _tanggapanController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-    @override
+  @override
   void dispose() {
-   
-
     _tanggapanController.dispose();
 
     super.dispose();
   }
 
-  
-
   bool _isLoading = false;
-  
 
   void _uploadTanggapan() async {
     final isValid = _formKey.currentState!.validate();
@@ -62,17 +57,18 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
         setState(() {
           _isLoading = true;
         });
-        
-        await FirebaseFirestore.instance. collection('aduan')
-                              .doc(widget.postId)
-                              .collection('tanggapan').doc(_uuid).set({
+
+        await FirebaseFirestore.instance
+            .collection('aduan')
+            .doc(widget.postId)
+            .collection('tanggapan')
+            .doc(_uuid)
+            .set({
           'tanggapanId': _uuid,
           'photoUrl': userModel.photoUrl,
-          
           'name': userModel.name,
           'userId': userModel.uid,
-          'tanggapan':_tanggapanController.text,
-          
+          'tanggapan': _tanggapanController.text,
           'createdAt': DateTime.now(),
         });
         _clearForm();
@@ -106,42 +102,36 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
 
   void _clearForm() {
     _tanggapanController.clear();
-   
   }
+
   @override
   Widget build(BuildContext context) {
     Widget status = Container();
-    switch(widget.status){
-      case "di periksa":status = Text(
-                          "Sedang Di Periksa",
-                             
-                          style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                  color:  Colors.red,
-                                     
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500)));
-                                  break;
-      case "di verifikasi":status = Text(
-                          "Di Verifikasi",
-                             
-                          style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                  color:  Colors.green,
-                                     
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500)));
-                                  break;
-      case "di tolak":status = Text(
-                          "Di Tolak",
-                             
-                          style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                  color:  Colors.red,
-                                     
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500)));
-                                  break;
+    switch (widget.status) {
+      case "di periksa":
+        status = Text("Sedang Di Periksa",
+            style: GoogleFonts.poppins(
+                textStyle: TextStyle(
+                    color: Colors.red,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500)));
+        break;
+      case "di verifikasi":
+        status = Text("Di Verifikasi",
+            style: GoogleFonts.poppins(
+                textStyle: TextStyle(
+                    color: Colors.green,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500)));
+        break;
+      case "di tolak":
+        status = Text("Di Tolak",
+            style: GoogleFonts.poppins(
+                textStyle: TextStyle(
+                    color: Colors.red,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500)));
+        break;
     }
     return Scaffold(
       appBar: AppBar(
@@ -160,7 +150,8 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 50,bottom: 30),
+            padding:
+                const EdgeInsets.only(left: 20, right: 20, top: 50, bottom: 30),
             child: Column(
               children: [
                 Container(
@@ -199,139 +190,149 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      
                       status,
-                                  Spacer(),
-                                 
+                      Spacer(),
                     ],
                   ),
                 ),
                 SizedBox(
                   height: 25,
                 ),
-                 Container(
+                Container(
                   width: MediaQuery.of(context).size.width,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       InkWell(
-                                              onTap: () {
-                                                GlobalMethods.warningDialog(title: "Tolak Aduan", subtitle: "Yakin Tolak Aduan?", fct: ()async{
-                                                   try {
-        setState(() {
-          _isLoading = true;
-        });
+                        onTap: () {
+                          GlobalMethods.warningDialog(
+                              title: "Tolak Aduan",
+                              subtitle: "Yakin Tolak Aduan?",
+                              fct: () async {
+                                try {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
 
+                                  await FirebaseFirestore.instance
+                                      .collection('aduan')
+                                      .doc(widget.postId)
+                                      .update({'status': "di tolak"});
 
-       
+                                  Fluttertoast.showToast(
+                                    msg: "Update succefully",
+                                    toastLength: Toast.LENGTH_LONG,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                    // backgroundColor: ,
+                                    // textColor: ,
+                                    // fontSize: 16.0
+                                  );
+                                } on FirebaseException catch (error) {
+                                  GlobalMethods.errorDialog(
+                                      subtitle: '${error.message}',
+                                      context: context);
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                } catch (error) {
+                                  GlobalMethods.errorDialog(
+                                      subtitle: '$error', context: context);
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                } finally {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                }
+                              },
+                              context: context);
+                        },
+                        child: Container(
+                          width: 100,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Center(
+                            child: Text("Tolak",
+                                style: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold))),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          GlobalMethods.warningDialog(
+                              title: "Verifikasi Aduan",
+                              subtitle: "Yakin Untuk Memferivikasi Aduan?",
+                              fct: () async {
+                                try {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
 
-        await FirebaseFirestore.instance.collection('aduan').doc(widget.postId).update({
-          'status': "di tolak"
-        });
-       
-        Fluttertoast.showToast(
-          msg: "Update succefully",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          // backgroundColor: ,
-          // textColor: ,
-          // fontSize: 16.0
-        );
-      } on FirebaseException catch (error) {
-        GlobalMethods.errorDialog(
-            subtitle: '${error.message}', context: context);
-        setState(() {
-          _isLoading = false;
-        });
-      } catch (error) {
-        GlobalMethods.errorDialog(subtitle: '$error', context: context);
-        setState(() {
-          _isLoading = false;
-        });
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-                                                }, context: context);
-                                               
-                                              },
-                                              child: Container(
-                                                width: 100,
-                                                height: 50,
-                                                decoration: BoxDecoration( color: Colors.red,borderRadius: BorderRadius.circular(15)),
-                                               
-                                                child: Center(
-                                                  child: Text("Tolak",
-                                                                                    style: GoogleFonts.poppins(
-                                                                                              textStyle: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold))),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(width: 20,),
-                                 InkWell(
-                                              onTap: () {
-                                                GlobalMethods.warningDialog(title: "Verifikasi Aduan", subtitle: "Yakin Untuk Memferivikasi Aduan?", fct: ()async{
-                                                  try {
-        setState(() {
-          _isLoading = true;
-        });
-       
+                                  await FirebaseFirestore.instance
+                                      .collection('aduan')
+                                      .doc(widget.postId)
+                                      .update({'status': "di verifikasi"});
 
-        await FirebaseFirestore.instance.collection('aduan').doc(widget.postId).update({
-          'status': "di verifikasi"
-        });
-
-        Fluttertoast.showToast(
-          msg: "Update succefully",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          // backgroundColor: ,
-          // textColor: ,
-          // fontSize: 16.0
-        );
-      } on FirebaseException catch (error) {
-        GlobalMethods.errorDialog(
-            subtitle: '${error.message}', context: context);
-        setState(() {
-          _isLoading = false;
-        });
-      } catch (error) {
-        GlobalMethods.errorDialog(subtitle: '$error', context: context);
-        setState(() {
-          _isLoading = false;
-        });
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-                                                }, context: context);
-                                                
-                                              },
-                                              child: Container(
-                                                width: 100,
-                                                height: 50,
-                                                decoration: BoxDecoration( color: Colors.green,borderRadius: BorderRadius.circular(15)),
-                                               
-                                                child: Center(
-                                                  child: Text("Verivikasi",
-                                                                                    style: GoogleFonts.poppins(
-                                                                                              textStyle: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold))),
-                                                ),
-                                              ),
-                                            ),
+                                  Fluttertoast.showToast(
+                                    msg: "Update succefully",
+                                    toastLength: Toast.LENGTH_LONG,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                    // backgroundColor: ,
+                                    // textColor: ,
+                                    // fontSize: 16.0
+                                  );
+                                } on FirebaseException catch (error) {
+                                  GlobalMethods.errorDialog(
+                                      subtitle: '${error.message}',
+                                      context: context);
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                } catch (error) {
+                                  GlobalMethods.errorDialog(
+                                      subtitle: '$error', context: context);
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                } finally {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                }
+                              },
+                              context: context);
+                        },
+                        child: Container(
+                          width: 100,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Center(
+                            child: Text("Verivikasi",
+                                style: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold))),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                 ),
+                ),
                 SizedBox(
                   height: 25,
                 ),
@@ -378,11 +379,10 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                         height: 200,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10)),
-                        child:  Image.network(
+                        child: Image.network(
                           widget.imageUrl,
                           fit: BoxFit.fill,
-                        )
-                      ),
+                        )),
                 SizedBox(
                   height: 20,
                 ),
@@ -409,72 +409,76 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                       SizedBox(
                         height: 10,
                       ),
-                      
                       Container(
-                        width:MediaQuery.of(context).size.width,
+                        width: MediaQuery.of(context).size.width,
                         child: Form(
-                           key: _formKey,
+                          key: _formKey,
                           child: Row(
                             children: [
                               Expanded(
                                 child: Container(
-                                   width:MediaQuery.of(context).size.width,
+                                  width: MediaQuery.of(context).size.width,
                                   child: TextFormField(
-                                                  validator: (value) {
-                                                    if (value!.isEmpty) {
-                                  return "Please enter a valid  Tanggapan";
-                                                    } else {
-                                  return null;
-                                                    }
-                                                  },
-                                                  maxLines: 20,
-                                                  minLines: 1,
-                                                  controller: _tanggapanController,
-                                                  style: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500)),
-                                                  decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(width: 1, color: Colors.purple),
-                                    borderRadius: BorderRadius.circular(15),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Please enter a valid  Tanggapan";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    maxLines: 20,
+                                    minLines: 1,
+                                    controller: _tanggapanController,
+                                    style: GoogleFonts.poppins(
+                                        textStyle: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500)),
+                                    decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              width: 1, color: Colors.purple),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              width: 1, color: Colors.purple),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        hintText: "Tanggapan Pengaduan",
+                                        hintStyle: GoogleFonts.poppins(
+                                            textStyle: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w500))),
                                   ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(width: 1, color: Colors.purple),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  hintText: "Tanggapan Pengaduan",
-                                  hintStyle: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500))),
-                                                ),
                                 ),
                               ),
-                              SizedBox(width: 10,),
-                                            InkWell(
-                                              onTap: () {
-                                                _uploadTanggapan();
-                                              },
-                                              child: Container(
-                                                width: 100,
-                                                height: 50,
-                                                decoration: BoxDecoration( color: Colors.purple,borderRadius: BorderRadius.circular(15)),
-                                               
-                                                child: Center(
-                                                  child: Text("Kirim",
-                                                                                    style: GoogleFonts.poppins(
-                                                                                              textStyle: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold))),
-                                                ),
-                                              ),
-                                            )
+                              SizedBox(
+                                width: 10,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  _uploadTanggapan();
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      color: Colors.purple,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                    child: Text("Kirim",
+                                        style: GoogleFonts.poppins(
+                                            textStyle: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold))),
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -533,7 +537,8 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                                                   )
                                                 : CircleAvatar(
                                                     radius: 25,
-                                                    backgroundColor: Colors.grey,
+                                                    backgroundColor:
+                                                        Colors.grey,
                                                     backgroundImage:
                                                         NetworkImage(photoUrl)),
                                             Expanded(
@@ -550,13 +555,14 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                                                       const EdgeInsets.all(8.0),
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Container(
-                                                        width:
-                                                            MediaQuery.of(context)
-                                                                .size
-                                                                .width,
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
                                                         child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -580,10 +586,10 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                                                         ),
                                                       ),
                                                       Container(
-                                                        width:
-                                                            MediaQuery.of(context)
-                                                                .size
-                                                                .width,
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
                                                         child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment

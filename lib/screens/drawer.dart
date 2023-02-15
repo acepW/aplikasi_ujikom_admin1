@@ -155,7 +155,7 @@ class _TopDrawerState extends State<TopDrawer> {
     });
     try {
       final DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('users')
+          .collection('akun')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
       if (userDoc == null) {

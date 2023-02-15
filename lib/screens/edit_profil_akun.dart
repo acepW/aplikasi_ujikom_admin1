@@ -47,7 +47,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
   @override
   void initState() {
     getUserData();
-    
+
     super.initState();
   }
 
@@ -59,9 +59,8 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
       User currentUser = _auth.currentUser!;
       String _uid = user!.uid;
 
-
       final DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('users')
+          .collection('akun')
           .doc(widget.uid)
           .get();
       if (userDoc == null) {
@@ -88,7 +87,6 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -276,7 +274,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                             onTap: () async {
                               String _uid = user!.uid;
                               String? photoUrl;
-                         
+
                               if (_photoUrl == null) {
                                 photoUrl = _photoUrl;
                               } else {
@@ -286,7 +284,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                               }
                               try {
                                 await FirebaseFirestore.instance
-                                    .collection('users')
+                                    .collection('akun')
                                     .doc(widget.uid)
                                     .update({
                                   'username': _userNameTextController.text,
