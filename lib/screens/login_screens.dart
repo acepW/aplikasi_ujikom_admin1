@@ -143,7 +143,7 @@ class _LoginScreensState extends State<LoginScreens> {
                           obscureText: _obscureText,
                           keyboardType: TextInputType.visiblePassword,
                           validator: (value) {
-                            if (value!.isEmpty || value.length < 7) {
+                            if (value!.isEmpty || value.length < 6) {
                               return 'Masukkan password dengan benar';
                             } else {
                               return null;

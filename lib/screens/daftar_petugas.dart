@@ -29,7 +29,7 @@ class _DaftarPetugasState extends State<DaftarPetugas> {
         child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('akun')
-                .where('role', isEqualTo: 'admin')
+                .where('role', isEqualTo: 'petugas')
                 .snapshots(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
