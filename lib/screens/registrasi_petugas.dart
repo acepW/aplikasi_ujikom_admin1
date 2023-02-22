@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:aplikasi_ujikom_admin/auth_method.dart';
-import 'package:aplikasi_ujikom_admin/screens/btm_bar.dart';
+
 import 'package:aplikasi_ujikom_admin/screens/home_screens.dart';
 import 'package:aplikasi_ujikom_admin/screens/login_screens.dart';
 import 'package:aplikasi_ujikom_admin/utils/utils.dart';
@@ -297,7 +297,9 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
                         color: Colors.purple,
                         borderRadius: BorderRadius.circular(15)),
                     child: Center(
-                      child: Text(
+                      child:_isLoading?
+                      CircularProgressIndicator(color: Colors.white,)
+                      : Text(
                         "Registrasi",
                         style: GoogleFonts.poppins(
                             textStyle: const TextStyle(
@@ -308,38 +310,7 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Sudah punya akun?",
-                        style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500)),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreens()));
-                          },
-                          child: Text("Login di sini",
-                              style: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                      color: Colors.purple,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500))))
-                    ],
-                  ),
-                )
+               
               ],
             ),
           ),

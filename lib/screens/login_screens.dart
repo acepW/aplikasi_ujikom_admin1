@@ -1,7 +1,7 @@
 import 'package:aplikasi_ujikom_admin/const/firebase_const.dart';
 import 'package:aplikasi_ujikom_admin/global_methods.dart';
 import 'package:aplikasi_ujikom_admin/provider/user_provider.dart';
-import 'package:aplikasi_ujikom_admin/screens/btm_bar.dart';
+
 import 'package:aplikasi_ujikom_admin/screens/home_screens.dart';
 import 'package:aplikasi_ujikom_admin/screens/registrasi_screens.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -194,7 +194,9 @@ class _LoginScreensState extends State<LoginScreens> {
                                 color: Colors.purple,
                                 borderRadius: BorderRadius.circular(15)),
                             child: Center(
-                              child: Text(
+                              child:_isLoading?
+                      CircularProgressIndicator(color: Colors.white,)
+                      : Text(
                                 "Login",
                                 style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(

@@ -1,4 +1,6 @@
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/widget/detail_aduan_petugas.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/widget/card_aduan.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/widget/detail_aduan_admin.dart';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,16 +9,16 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ListPengaduanDiperiksaPetugas extends StatefulWidget {
-  const ListPengaduanDiperiksaPetugas({super.key});
+class ListPengaduanDiperiksaAdmin extends StatefulWidget {
+  const ListPengaduanDiperiksaAdmin({super.key});
 
   @override
-  State<ListPengaduanDiperiksaPetugas> createState() =>
-      _ListPengaduanDiperiksaPetugasState();
+  State<ListPengaduanDiperiksaAdmin> createState() =>
+      _ListPengaduanDiperiksaAdminState();
 }
 
-class _ListPengaduanDiperiksaPetugasState
-    extends State<ListPengaduanDiperiksaPetugas> {
+class _ListPengaduanDiperiksaAdminState
+    extends State<ListPengaduanDiperiksaAdmin> {
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
@@ -71,12 +73,11 @@ class _ListPengaduanDiperiksaPetugasState
                         String photoUrl = snapshot.data.docs[index]['photoUrl'];
                         String postId = snapshot.data.docs[index]['postId'];
                         String status = snapshot.data.docs[index]['status'];
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
+                        return CardAduan(judul: judul, deskripsi: deskripsi, onTap: (){
+                          Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => DetailAduanPetugas(
+                                    builder: (context) => DetailAduanAdmin(
                                         judul: judul,
                                         deskripsi: deskripsi,
                                         postId: postId,
@@ -84,43 +85,7 @@ class _ListPengaduanDiperiksaPetugasState
                                         imageUrl: imageUrl,
                                         name: name,
                                         tanggal: time)));
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 15),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 200,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black),
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  children: [
-                                    Text(judul,
-                                        style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 25,
-                                                fontWeight: FontWeight.w500))),
-                                    Flexible(
-                                      child: Text(deskripsi,
-                                          textAlign: TextAlign.center,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 5,
-                                          style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15,
-                                                  fontWeight:
-                                                      FontWeight.w500))),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
+                        }, time: time);
                       });
                 }
                 return Center(

@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:aplikasi_ujikom_admin/auth_method.dart';
-import 'package:aplikasi_ujikom_admin/screens/btm_bar.dart';
+
 import 'package:aplikasi_ujikom_admin/screens/home_screens.dart';
 import 'package:aplikasi_ujikom_admin/screens/login_screens.dart';
 import 'package:aplikasi_ujikom_admin/utils/utils.dart';
@@ -298,7 +298,9 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
                         color: Colors.purple,
                         borderRadius: BorderRadius.circular(15)),
                     child: Center(
-                      child: Text(
+                      child:_isLoading?
+                      CircularProgressIndicator(color: Colors.white,)
+                      : Text(
                         "Registrasi",
                         style: GoogleFonts.poppins(
                             textStyle: const TextStyle(

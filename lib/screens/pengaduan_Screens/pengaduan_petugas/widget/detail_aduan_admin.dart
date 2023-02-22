@@ -1,3 +1,4 @@
+
 import 'package:aplikasi_ujikom_admin/global_methods.dart';
 import 'package:aplikasi_ujikom_admin/model/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,9 +9,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart';
 
-class DetailAduanPetugas extends StatefulWidget {
-  const DetailAduanPetugas(
+class DetailAduanAdmin extends StatefulWidget {
+  const DetailAduanAdmin(
       {super.key,
       required this.judul,
       required this.deskripsi,
@@ -23,10 +25,10 @@ class DetailAduanPetugas extends StatefulWidget {
   final DateTime tanggal;
 
   @override
-  State<DetailAduanPetugas> createState() => _DetailAduanPetugasState();
+  State<DetailAduanAdmin> createState() => _DetailAduanAdminState();
 }
 
-class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
+class _DetailAduanAdminState extends State<DetailAduanAdmin> {
   final _tanggapanController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
@@ -49,7 +51,7 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
       User? user = FirebaseAuth.instance.currentUser;
 
       DocumentSnapshot userData = await FirebaseFirestore.instance
-          .collection('users')
+          .collection('akun')
           .doc(user!.uid)
           .get();
       UserModel userModel = UserModel.fromSnap(userData);
@@ -159,26 +161,27 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Ditulis oleh ${widget.name}",
-                          style: GoogleFonts.poppins(
+                     Text("Ditulis oleh ${widget.name}",
+                          style: GoogleFonts.rubik(
                               textStyle: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 25,
-                                  fontWeight: FontWeight.w500))),
+                                  fontWeight: FontWeight.bold))),
                     ],
                   ),
                 ),
-                Container(
+               Container(
                   width: MediaQuery.of(context).size.width,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Pada Tanggal",
-                          style: GoogleFonts.poppins(
+                      Text("Pada ${ DateFormat.yMd().add_jm()
+                                                              .format(widget.tanggal)}",
+                          style: GoogleFonts.rubik(
                               textStyle: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
-                                  fontWeight: FontWeight.w500))),
+                                  fontWeight: FontWeight.w400))),
                     ],
                   ),
                 ),
@@ -257,7 +260,7 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                               borderRadius: BorderRadius.circular(15)),
                           child: Center(
                             child: Text("Tolak",
-                                style: GoogleFonts.poppins(
+                                style: GoogleFonts.rubik(
                                     textStyle: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
@@ -321,8 +324,8 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                               color: Colors.green,
                               borderRadius: BorderRadius.circular(15)),
                           child: Center(
-                            child: Text("Verivikasi",
-                                style: GoogleFonts.poppins(
+                            child: Text("Verifikasi",
+                                style: GoogleFonts.rubik(
                                     textStyle: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
@@ -339,20 +342,21 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Flexible(
                         child: Text(widget.judul,
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.poppins(
+                            textAlign: TextAlign.start,
+                            style: GoogleFonts.rubik(
                                 textStyle: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 25,
-                                    fontWeight: FontWeight.bold))),
+                                    fontWeight: FontWeight.w500))),
                       ),
                     ],
                   ),
                 ),
+               SizedBox(height: 10,),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: Row(
@@ -360,10 +364,10 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                     children: [
                       Flexible(
                         child: Text(widget.deskripsi,
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.rubik(
                                 textStyle: const TextStyle(
                                     color: Colors.black,
-                                    fontSize: 18,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.w400))),
                       ),
                     ],
@@ -379,10 +383,12 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                         height: 200,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10)),
-                        child: Image.network(
+                        child: 
+                             Image.network(
                           widget.imageUrl,
                           fit: BoxFit.fill,
-                        )),
+                        )
+                      ),
                 SizedBox(
                   height: 20,
                 ),
@@ -397,7 +403,7 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                             Flexible(
                               child: Text("Tanggapan",
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(
+                                  style: GoogleFonts.rubik(
                                       textStyle: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 25,
@@ -429,7 +435,7 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                                     maxLines: 20,
                                     minLines: 1,
                                     controller: _tanggapanController,
-                                    style: GoogleFonts.poppins(
+                                    style: GoogleFonts.rubik(
                                         textStyle: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 15,
@@ -448,7 +454,7 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                                               BorderRadius.circular(15),
                                         ),
                                         hintText: "Tanggapan Pengaduan",
-                                        hintStyle: GoogleFonts.poppins(
+                                        hintStyle: GoogleFonts.rubik(
                                             textStyle: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 15,
@@ -471,7 +477,7 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                                       borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                     child: Text("Kirim",
-                                        style: GoogleFonts.poppins(
+                                        style: GoogleFonts.rubik(
                                             textStyle: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15,
@@ -495,7 +501,7 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                                 return Padding(
                                   padding: const EdgeInsets.only(top: 15),
                                   child: Text("Belum ada Tanggapan",
-                                      style: GoogleFonts.poppins(
+                                      style: GoogleFonts.rubik(
                                           textStyle: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 20,
@@ -573,7 +579,7 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                                                                   textAlign:
                                                                       TextAlign
                                                                           .center,
-                                                                  style: GoogleFonts.poppins(
+                                                                  style: GoogleFonts.rubik(
                                                                       textStyle: const TextStyle(
                                                                           color: Colors
                                                                               .black,
@@ -601,7 +607,7 @@ class _DetailAduanPetugasState extends State<DetailAduanPetugas> {
                                                                   textAlign:
                                                                       TextAlign
                                                                           .start,
-                                                                  style: GoogleFonts.poppins(
+                                                                  style: GoogleFonts.rubik(
                                                                       textStyle: const TextStyle(
                                                                           color: Colors
                                                                               .black,
