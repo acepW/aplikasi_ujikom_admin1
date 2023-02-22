@@ -4,11 +4,12 @@ import 'package:aplikasi_ujikom_admin/screens/daftar_petugas.dart';
 
 import 'package:aplikasi_ujikom_admin/screens/drawer.dart';
 import 'package:aplikasi_ujikom_admin/screens/login_screens.dart';
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/list_aduan_admin_ditolak.dart';
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/list_pengaduan_admin.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/list_aduan_admin_ditolak.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/list_pengaduan_admin.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/list_pengaduan_petugas_diproses.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/list_pengaduan_petugas_diverivikasi.dart';
 
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/list_pengaduan_petugas_diproses.dart';
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/list_pengaduan_petugas_diverivikasi.dart';
+
 import 'package:aplikasi_ujikom_admin/screens/registrasi_petugas.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,7 +49,7 @@ class _HomeScreensState extends State<HomeScreens> {
           child: Column(
             children: [
               Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 30),
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 30,),
               child: InkWell(
                 onTap: () {
                   Navigator.push(
@@ -273,7 +274,7 @@ class _HomeScreensState extends State<HomeScreens> {
               ),
             ),
               Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 30),
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 30,bottom:10 ),
               child: InkWell(
                 onTap: () {
                   Navigator.push(

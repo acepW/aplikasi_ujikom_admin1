@@ -1,7 +1,7 @@
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/widget/card_aduan.dart';
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/widget/detail_aduan_admin.dart';
 
 
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/widget/card_aduan.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/widget/detail_aduan_admin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,16 +9,14 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ListPengaduanDiperiksaAdmin extends StatefulWidget {
-  const ListPengaduanDiperiksaAdmin({super.key});
+class ListPengaduanAdmin extends StatefulWidget {
+  const ListPengaduanAdmin({super.key});
 
   @override
-  State<ListPengaduanDiperiksaAdmin> createState() =>
-      _ListPengaduanDiperiksaAdminState();
+  State<ListPengaduanAdmin> createState() => _ListPengaduanAdminState();
 }
 
-class _ListPengaduanDiperiksaAdminState
-    extends State<ListPengaduanDiperiksaAdmin> {
+class _ListPengaduanAdminState extends State<ListPengaduanAdmin> {
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class _ListPengaduanDiperiksaAdminState
       appBar: AppBar(
          backgroundColor: Colors.purple,
           centerTitle: true,
-          title: Text("Pengaduan Belum Di Proses",
+          title: Text("Semua Pengaduan",
               style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
                       color: Colors.white,
@@ -39,7 +37,7 @@ class _ListPengaduanDiperiksaAdminState
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('aduan')
-                  .where('status', isEqualTo: 'di periksa')
+                  .orderBy('createdAt', descending: true)
                   .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {

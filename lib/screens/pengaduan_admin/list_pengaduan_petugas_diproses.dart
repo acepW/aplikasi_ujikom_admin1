@@ -1,7 +1,8 @@
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/widget/card_aduan.dart';
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/widget/detail_aduan_admin.dart';
 
 
+
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/widget/card_aduan.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/widget/detail_aduan_admin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,24 +10,24 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ListPengaduanDiTolakPetugas extends StatefulWidget {
-  const ListPengaduanDiTolakPetugas({super.key});
+class ListPengaduanDiperiksaAdmin extends StatefulWidget {
+  const ListPengaduanDiperiksaAdmin({super.key});
 
   @override
-  State<ListPengaduanDiTolakPetugas> createState() =>
-      _ListPengaduanDiTolakPetugasState();
+  State<ListPengaduanDiperiksaAdmin> createState() =>
+      _ListPengaduanDiperiksaAdminState();
 }
 
-class _ListPengaduanDiTolakPetugasState
-    extends State<ListPengaduanDiTolakPetugas> {
+class _ListPengaduanDiperiksaAdminState
+    extends State<ListPengaduanDiperiksaAdmin> {
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+         backgroundColor: Colors.purple,
           centerTitle: true,
-          title: Text("Pengaduan Di Tolak",
+          title: Text("Pengaduan Belum Di Proses",
               style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
                       color: Colors.white,
@@ -39,7 +40,7 @@ class _ListPengaduanDiTolakPetugasState
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('aduan')
-                  .where('status', isEqualTo: 'di tolak')
+                  .where('status', isEqualTo: 'di periksa')
                   .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {

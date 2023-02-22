@@ -1,7 +1,7 @@
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/widget/card_aduan.dart';
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/widget/detail_aduan_admin.dart';
 
 
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/widget/card_aduan.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/widget/detail_aduan_admin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,22 +9,24 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ListPengaduanAdmin extends StatefulWidget {
-  const ListPengaduanAdmin({super.key});
+class ListPengaduanVerifikasiAdmin extends StatefulWidget {
+  const ListPengaduanVerifikasiAdmin({super.key});
 
   @override
-  State<ListPengaduanAdmin> createState() => _ListPengaduanAdminState();
+  State<ListPengaduanVerifikasiAdmin> createState() =>
+      _ListPengaduanVerifikasiAdminState();
 }
 
-class _ListPengaduanAdminState extends State<ListPengaduanAdmin> {
+class _ListPengaduanVerifikasiAdminState
+    extends State<ListPengaduanVerifikasiAdmin> {
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         backgroundColor: Colors.purple,
+        backgroundColor: Colors.purple,
           centerTitle: true,
-          title: Text("Semua Pengaduan",
+          title: Text("Pengaduan Di Verifikasi",
               style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
                       color: Colors.white,
@@ -37,7 +39,7 @@ class _ListPengaduanAdminState extends State<ListPengaduanAdmin> {
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('aduan')
-                  .orderBy('createdAt', descending: true)
+                  .where('status', isEqualTo: 'di verifikasi')
                   .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {

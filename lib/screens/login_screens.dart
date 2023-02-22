@@ -84,14 +84,14 @@ class _LoginScreensState extends State<LoginScreens> {
                   left: 15, right: 15, top: 70, bottom: 10),
               child: Column(
                 children: [
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width,
-                  //   height: 200,
-                  //   child: Image.asset(
-                  //     'assets/images/welcome.jpg',
-                  //     fit: BoxFit.contain,
-                  //   ),
-                  // ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                    child: Image.asset(
+                      'assets/images/welcome.jpg',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                   const SizedBox(
                     height: 50,
                   ),

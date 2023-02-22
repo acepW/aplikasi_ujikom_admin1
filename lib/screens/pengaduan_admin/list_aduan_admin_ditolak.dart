@@ -1,7 +1,8 @@
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/widget/card_aduan.dart';
-import 'package:aplikasi_ujikom_admin/screens/pengaduan_Screens/pengaduan_petugas/widget/detail_aduan_admin.dart';
 
 
+
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/widget/card_aduan.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/widget/detail_aduan_admin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,16 +10,16 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ListPengaduanVerifikasiAdmin extends StatefulWidget {
-  const ListPengaduanVerifikasiAdmin({super.key});
+class ListPengaduanDiTolakPetugas extends StatefulWidget {
+  const ListPengaduanDiTolakPetugas({super.key});
 
   @override
-  State<ListPengaduanVerifikasiAdmin> createState() =>
-      _ListPengaduanVerifikasiAdminState();
+  State<ListPengaduanDiTolakPetugas> createState() =>
+      _ListPengaduanDiTolakPetugasState();
 }
 
-class _ListPengaduanVerifikasiAdminState
-    extends State<ListPengaduanVerifikasiAdmin> {
+class _ListPengaduanDiTolakPetugasState
+    extends State<ListPengaduanDiTolakPetugas> {
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class _ListPengaduanVerifikasiAdminState
       appBar: AppBar(
         backgroundColor: Colors.purple,
           centerTitle: true,
-          title: Text("Pengaduan Di Verifikasi",
+          title: Text("Pengaduan Di Tolak",
               style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
                       color: Colors.white,
@@ -39,7 +40,7 @@ class _ListPengaduanVerifikasiAdminState
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('aduan')
-                  .where('status', isEqualTo: 'di verifikasi')
+                  .where('status', isEqualTo: 'di tolak')
                   .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
