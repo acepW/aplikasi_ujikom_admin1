@@ -196,7 +196,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                               height: 8,
                             ),
                             TextFormField(
-                              maxLength: 20,
+                              maxLength: 30,
                               controller: _fullNameController,
                               decoration: InputDecoration(
                                 counter: Offstage(),
