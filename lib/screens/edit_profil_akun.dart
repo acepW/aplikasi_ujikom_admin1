@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:aplikasi_ujikom_admin/btm_bar.dart';
 import 'package:aplikasi_ujikom_admin/global_methods.dart';
 
-import 'package:aplikasi_ujikom_admin/screens/home_screens.dart';
+
 import 'package:aplikasi_ujikom_admin/storage_method.dart';
 import 'package:aplikasi_ujikom_admin/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -298,7 +299,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => HomeScreens()));
+                                        builder: (context) => BottomBarScreen()));
                                 setState(() {
                                   _userName = _userNameTextController.text;
 

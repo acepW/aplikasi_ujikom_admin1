@@ -37,12 +37,11 @@ class _DaftarPetugasState extends State<DaftarPetugas> {
                   return Padding(
                     padding: const EdgeInsets.only(top: 200),
                     child: Center(
-                      child: Text("Belum Ada Aduanmu",
-                          style: GoogleFonts.poppins(
-                              textStyle: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500))),
+                      child: Container(
+                                  width: 200,
+                                  height: 200,
+                                  decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/empty.png'))),
+                                 ),
                     ),
                   );
                 }
@@ -57,94 +56,97 @@ class _DaftarPetugasState extends State<DaftarPetugas> {
                       String username = snapshot.data.docs[index]['username'];
                       String role = snapshot.data.docs[index]['role'];
 
-                      return InkWell(
-                          onTap: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 7),
-                            child: Container(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  photoUrl == ""
-                                      ? CircleAvatar(
-                                          radius: 25,
-                                          backgroundImage: NetworkImage(
-                                              'https://i.stack.imgur.com/l60Hf.png'),
-                                        )
-                                      : CircleAvatar(
-                                          radius: 25,
-                                          backgroundColor: Colors.grey,
-                                          backgroundImage:
-                                              NetworkImage(photoUrl)),
-                                  Expanded(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(email,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: GoogleFonts.poppins(
-                                                            textStyle: const TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold))),
-                                                  ),
-                                                ],
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 5,left: 10,right: 10),
+                        child: InkWell(
+                            onTap: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 7),
+                              child: Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    photoUrl == ""
+                                        ? CircleAvatar(
+                                            radius: 25,
+                                            backgroundImage: NetworkImage(
+                                                'https://i.stack.imgur.com/l60Hf.png'),
+                                          )
+                                        : CircleAvatar(
+                                            radius: 25,
+                                            backgroundColor: Colors.grey,
+                                            backgroundImage:
+                                                NetworkImage(photoUrl)),
+                                    Expanded(
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Flexible(
+                                                      child: Text(email,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: GoogleFonts.poppins(
+                                                              textStyle: const TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold))),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(name,
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style: GoogleFonts.poppins(
-                                                            textStyle: const TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400))),
-                                                  ),
-                                                ],
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Flexible(
+                                                      child: Text(name,
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: GoogleFonts.poppins(
+                                                              textStyle: const TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400))),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          ));
+                            )),
+                      );
                     });
               }
               return Center(

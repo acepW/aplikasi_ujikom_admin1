@@ -15,14 +15,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreens extends StatefulWidget {
-  const HomeScreens({super.key});
+class PengaduanScreens extends StatefulWidget {
+  const PengaduanScreens({super.key});
 
   @override
-  State<HomeScreens> createState() => _HomeScreensState();
+  State<PengaduanScreens> createState() => _PengaduanScreensState();
 }
 
-class _HomeScreensState extends State<HomeScreens> {
+class _PengaduanScreensState extends State<PengaduanScreens> {
   @override
   Widget build(BuildContext context) {
     Provider.of<UserProvider>(context).refreshUser();

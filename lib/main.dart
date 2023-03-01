@@ -1,5 +1,6 @@
+import 'package:aplikasi_ujikom_admin/btm_bar.dart';
 import 'package:aplikasi_ujikom_admin/provider/user_provider.dart';
-import 'package:aplikasi_ujikom_admin/screens/home_screens.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_screens.dart';
 
 import 'package:aplikasi_ujikom_admin/screens/login_screens.dart';
 
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
               // Checking if the snapshot has any data or not
               if (snapshot.hasData) {
                 // if snapshot has data which means user is logged in then we check the width of screen and accordingly display the screen layout
-                return const HomeScreens();
+                return const BottomBarScreen();
               } else if (snapshot.hasError) {
                 return Center(
                   child: Text('${snapshot.error}'),

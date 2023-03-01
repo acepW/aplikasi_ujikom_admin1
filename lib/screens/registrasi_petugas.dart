@@ -1,8 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:aplikasi_ujikom_admin/auth_method.dart';
+import 'package:aplikasi_ujikom_admin/btm_bar.dart';
 
-import 'package:aplikasi_ujikom_admin/screens/home_screens.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_screens.dart';
 import 'package:aplikasi_ujikom_admin/screens/login_screens.dart';
 import 'package:aplikasi_ujikom_admin/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -76,7 +77,7 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
       });
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => HomeScreens(),
+          builder: (context) => BottomBarScreen(),
         ),
       );
     } else {
@@ -218,6 +219,7 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
                   height: 10,
                 ),
                 TextFormField(
+                  maxLength: 20,
                   textInputAction: TextInputAction.next,
                   onEditingComplete: () =>
                       FocusScope.of(context).requestFocus(_passFocusNode),
@@ -252,6 +254,7 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
                   height: 10,
                 ),
                 TextFormField(
+                  maxLength: 20,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Please enter a valid  user name";

@@ -33,9 +33,11 @@ class _CardAduanState extends State<CardAduan> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: 200,
+          
           decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
                boxShadow: [
                 BoxShadow(
                             color: Colors.black.withOpacity(0.5),

@@ -1,8 +1,9 @@
+import 'package:aplikasi_ujikom_admin/btm_bar.dart';
 import 'package:aplikasi_ujikom_admin/const/firebase_const.dart';
 import 'package:aplikasi_ujikom_admin/global_methods.dart';
 import 'package:aplikasi_ujikom_admin/provider/user_provider.dart';
 
-import 'package:aplikasi_ujikom_admin/screens/home_screens.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_screens.dart';
 import 'package:aplikasi_ujikom_admin/screens/registrasi_screens.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ class _LoginScreensState extends State<LoginScreens> {
             password: _passTextController.text.trim());
 
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => HomeScreens(),
+          builder: (context) =>BottomBarScreen(),
         ));
         print('Successfully logged in');
       } on FirebaseException catch (error) {
