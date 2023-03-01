@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:aplikasi_ujikom_admin/global_methods.dart';
+
 import 'package:aplikasi_ujikom_admin/screens/home_screens.dart';
 import 'package:aplikasi_ujikom_admin/storage_method.dart';
 import 'package:aplikasi_ujikom_admin/utils/utils.dart';
@@ -112,7 +113,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
               centerTitle: true,
               title: Text(
                 'Edit Profil',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.rubik(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: Colors.black),
@@ -185,7 +186,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                           children: [
                             Text(
                               'Nama Lengkap',
-                              style: GoogleFonts.poppins(
+                              style: GoogleFonts.rubik(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black),
@@ -199,7 +200,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                               decoration: InputDecoration(
                                 counter: Offstage(),
                                 hintText: 'Masukan Nama',
-                                hintStyle: GoogleFonts.poppins(
+                                hintStyle: GoogleFonts.rubik(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
@@ -226,7 +227,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                           children: [
                             Text(
                               'User name',
-                              style: GoogleFonts.poppins(
+                              style: GoogleFonts.rubik(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black),
@@ -255,7 +256,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                                       width: 1.5, color: Colors.purple),
                                 ),
                                 hintText: 'Masukan Nama',
-                                hintStyle: GoogleFonts.poppins(
+                                hintStyle: GoogleFonts.rubik(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
@@ -275,8 +276,10 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                               String _uid = user!.uid;
                               String? photoUrl;
 
-                              if (_photoUrl == null) {
+                              if (_image == null) {
                                 photoUrl = _photoUrl;
+                                
+                                
                               } else {
                                 photoUrl = await StorageMethods()
                                     .uploadImageToStorage(
@@ -320,7 +323,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                               child: Center(
                                 child: Text(
                                   'Simpan',
-                                  style: GoogleFonts.poppins(
+                                  style: GoogleFonts.rubik(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white),

@@ -5,6 +5,7 @@ import 'package:aplikasi_ujikom_admin/screens/login_screens.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../const/firebase_const.dart';
@@ -25,11 +26,12 @@ class _DrawerHomeState extends State<DrawerHome> {
         SizedBox(
           height: 30,
         ),
-        KeluarButton(),
+        EditButton(),
+        
         SizedBox(
           height: 20,
         ),
-        EditButton()
+        KeluarButton(),
       ],
     );
   }
@@ -57,14 +59,14 @@ class EditButton extends StatelessWidget {
           child: Row(
             children: [
               Icon(
-                Icons.edit,
+                IconlyBold.edit,
                 color: Colors.purple,
               ),
               SizedBox(
                 width: 10,
               ),
               Text("Edit Profile",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.rubik(
                       textStyle: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -94,24 +96,25 @@ class KeluarButton extends StatelessWidget {
               context: context,
               subtitle: "Yakin untuk keluar dari akun?",
               title: "Keluar akun",
-              fct: () {
-                AuthMethods().signOut();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginScreens()));
+              fct: ()async {
+                 return Future.wait([AuthMethods().signOut(),Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginScreens()))]);
+               
+               
               },
             );
           },
           child: Row(
             children: [
               Icon(
-                Icons.outbox,
+                Icons.logout,
                 color: Colors.purple,
               ),
               SizedBox(
                 width: 10,
               ),
               Text("Keluar",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.rubik(
                       textStyle: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -138,7 +141,7 @@ class _TopDrawerState extends State<TopDrawer> {
 
   String? _fullName;
   String? _userName;
-
+  String? _email;
   bool _isLoading = false;
 
   final User? user = authInstance.currentUser;
@@ -166,8 +169,9 @@ class _TopDrawerState extends State<TopDrawer> {
       } else {
         _photoUrl = userDoc.get('photoUrl');
         _fullName = userDoc.get('name');
-
+        _email = userDoc.get('email');
         _userName = userDoc.get('username');
+        
       }
     } catch (error) {
       setState(() {
@@ -193,15 +197,25 @@ class _TopDrawerState extends State<TopDrawer> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+            _photoUrl == null?
+             Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/empty-profil.png'),
+                      fit: BoxFit.cover),
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+              ):
               Container(
                 width: 100,
                 height: 100,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: NetworkImage(_photoUrl == null
-                          ? 'https://i.stack.imgur.com/l60Hf.png'
-                          : _photoUrl!),
-                      fit: BoxFit.fill),
+                      image: NetworkImage( _photoUrl!),
+                      fit: BoxFit.cover),
                   color: Colors.white,
                   shape: BoxShape.circle,
                 ),
@@ -210,7 +224,7 @@ class _TopDrawerState extends State<TopDrawer> {
                 height: 10,
               ),
               Text(_fullName == null ? "-" : _fullName!,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.rubik(
                       textStyle: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -218,8 +232,8 @@ class _TopDrawerState extends State<TopDrawer> {
               SizedBox(
                 height: 5,
               ),
-              Text(_userName == null ? "-" : _userName!,
-                  style: GoogleFonts.poppins(
+              Text(_email == null ? "-" : _email!,
+                  style: GoogleFonts.rubik(
                       textStyle: const TextStyle(
                           color: Colors.white,
                           fontSize: 15,

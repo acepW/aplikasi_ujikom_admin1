@@ -35,7 +35,15 @@ class _CardAduanState extends State<CardAduan> {
           height: 200,
           decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(15)),
+              borderRadius: BorderRadius.circular(15),
+               boxShadow: [
+                BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            blurRadius: 10,
+                            offset: Offset(2, 6))
+              ]
+              ),
+              
           child: Column(
             children: [
               Container(
