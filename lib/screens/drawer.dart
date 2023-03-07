@@ -97,8 +97,12 @@ class KeluarButton extends StatelessWidget {
               subtitle: "Yakin untuk keluar dari akun?",
               title: "Keluar akun",
               fct: ()async {
-                 return Future.wait([AuthMethods().signOut(),Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginScreens()))]);
+                await authInstance.signOut();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreens(),
+                              ),
+                            );
                
                
               },

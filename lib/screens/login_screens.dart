@@ -2,9 +2,11 @@ import 'package:aplikasi_ujikom_admin/btm_bar.dart';
 import 'package:aplikasi_ujikom_admin/const/firebase_const.dart';
 import 'package:aplikasi_ujikom_admin/global_methods.dart';
 import 'package:aplikasi_ujikom_admin/provider/user_provider.dart';
+import 'package:aplikasi_ujikom_admin/screens/forget_password.dart';
 
 import 'package:aplikasi_ujikom_admin/screens/pengaduan_screens.dart';
 import 'package:aplikasi_ujikom_admin/screens/registrasi_screens.dart';
+import 'package:aplikasi_ujikom_admin/validasi.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,7 +51,7 @@ class _LoginScreensState extends State<LoginScreens> {
             password: _passTextController.text.trim());
 
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) =>BottomBarScreen(),
+          builder: (context) =>ValidasiScreens(),
         ));
         print('Successfully logged in');
       } on FirebaseException catch (error) {
@@ -181,8 +183,33 @@ class _LoginScreensState extends State<LoginScreens> {
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500))),
                         ),
+                         const SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ForgetPasswordScreen()));
+                                        },
+                                        child: Text("Lupa Password?",
+                                            style: GoogleFonts.poppins(
+                                                textStyle: const TextStyle(
+                                                    color: Colors.purple,
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500)))),
+                            ],
+                          ),
+                        ),
                         const SizedBox(
-                          height: 25,
+                          height: 5,
                         ),
                         InkWell(
                           onTap: () {
