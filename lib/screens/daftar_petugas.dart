@@ -1,3 +1,4 @@
+import 'package:aplikasi_ujikom_admin/global_methods.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -50,6 +51,7 @@ class _DaftarPetugasState extends State<DaftarPetugas> {
                     itemCount: snapshot.data.docs.length,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
+                      String id = snapshot.data.docs[index]['uid'];
                       String email = snapshot.data.docs[index]['email'];
                       String name = snapshot.data.docs[index]['name'];
                       String photoUrl = snapshot.data.docs[index]['photoUrl'];
@@ -141,7 +143,19 @@ class _DaftarPetugasState extends State<DaftarPetugas> {
                                           ),
                                         ),
                                       ),
-                                    )
+                                    ),
+                                    IconButton(onPressed: (){
+                                      GlobalMethods.warningDialog(title: "Cabut Izin Petugas?", subtitle: "Yakin Mencabut Izin Petugas?", fct:  () async {
+                                await FirebaseFirestore.instance
+                                    .collection('akun')
+                                    .doc(id)
+                                    .update({
+                                      'role': 'user'
+                                    });
+
+                               
+                              }, context: context);
+                                    }, icon: Icon(Icons.remove_circle))
                                   ],
                                 ),
                               ),

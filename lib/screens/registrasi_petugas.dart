@@ -9,6 +9,7 @@ import 'package:aplikasi_ujikom_admin/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -75,11 +76,16 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
       setState(() {
         _isLoading = false;
       });
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => BottomBarScreen(),
-        ),
-      );
+      _clearForm();
+      Fluttertoast.showToast(
+          msg: "Register succefully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          // backgroundColor: ,
+          // textColor: ,
+          // fontSize: 16.0
+        );
     } else {
       setState(() {
         _isLoading = false;
@@ -87,6 +93,14 @@ class _RegistrasiPetugasScreensState extends State<RegistrasiPetugasScreens> {
       // show the error
       showSnackBar(context, res);
     }
+  }
+
+  _clearForm(){
+     _passTextController.clear();
+    _userNameTextController.clear();
+    _emailTextController.clear();
+    _fullNameController.clear();
+  
   }
 
   selectImage() async {

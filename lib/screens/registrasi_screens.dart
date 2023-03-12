@@ -76,7 +76,7 @@ class _RegistrasiScreensState extends State<RegistrasiScreens> {
       });
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => BottomBarScreen(),
+          builder: (context) => PengaduanScreens(),
         ),
       );
     } else {

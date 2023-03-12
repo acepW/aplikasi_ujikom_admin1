@@ -3,6 +3,8 @@ import 'package:aplikasi_ujikom_admin/provider/user_provider.dart';
 import 'package:aplikasi_ujikom_admin/screens/daftar_petugas.dart';
 
 import 'package:aplikasi_ujikom_admin/screens/drawer.dart';
+import 'package:aplikasi_ujikom_admin/screens/laporan_pengaduan.dart';
+
 import 'package:aplikasi_ujikom_admin/screens/login_screens.dart';
 import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/list_aduan_admin_ditolak.dart';
 import 'package:aplikasi_ujikom_admin/screens/pengaduan_admin/list_pengaduan_admin.dart';
@@ -461,6 +463,78 @@ class _PengaduanScreensState extends State<PengaduanScreens> {
                                 ),
                                 Text(
                                   "Petugas",
+                                  style: GoogleFonts.rubik(
+                                      textStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 130,
+                          height: 100,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/officer.png'),
+                                  fit: BoxFit.fill)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 30,bottom:10 ),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                             LaporanPengaduan()));
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 150,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Colors.black),
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            blurRadius: 10,
+                            offset: Offset(2, 6))
+                      ]),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 40),
+                          child: Container(
+                            width: 150,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Laporan",
+                                  style: GoogleFonts.rubik(
+                                      textStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                                Text(
+                                  "Pengaduan",
                                   style: GoogleFonts.rubik(
                                       textStyle: TextStyle(
                                           color: Colors.black,

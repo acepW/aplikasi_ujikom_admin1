@@ -167,6 +167,24 @@ class _DetailAduanAdminState extends State<DetailAduanAdmin> {
                                   color: Colors.black,
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold))),
+                                  Spacer(),
+                      IconButton(
+                          onPressed: () {
+                            GlobalMethods.warningDialog(
+                              context: context,
+                              subtitle: "Yakin menghapus Aduan?",
+                              title: "Hapus Aduan",
+                              fct: () async {
+                                await FirebaseFirestore.instance
+                                    .collection('aduan')
+                                    .doc(widget.postId)
+                                    .delete();
+
+                                return Navigator.pop(context);
+                              },
+                            );
+                          },
+                          icon: Icon(IconlyLight.delete))
                     ],
                   ),
                 ),

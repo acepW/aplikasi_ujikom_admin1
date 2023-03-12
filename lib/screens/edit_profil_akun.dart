@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:aplikasi_ujikom_admin/btm_bar.dart';
 import 'package:aplikasi_ujikom_admin/global_methods.dart';
+import 'package:aplikasi_ujikom_admin/screens/pengaduan_screens.dart';
 
 
 import 'package:aplikasi_ujikom_admin/storage_method.dart';
@@ -299,7 +300,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => BottomBarScreen()));
+                                        builder: (context) => PengaduanScreens()));
                                 setState(() {
                                   _userName = _userNameTextController.text;
 
