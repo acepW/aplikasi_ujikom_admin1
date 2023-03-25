@@ -1,4 +1,5 @@
 import 'package:aplikasi_ujikom_admin/const/firebase_const.dart';
+import 'package:aplikasi_ujikom_admin/screens/login_screens.dart';
 import 'package:aplikasi_ujikom_admin/storage_method.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,11 +13,11 @@ class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // get user details
-  Future<model.UserModel> getUserDetails() async {
-    User currentUser = _auth.currentUser!;
+   Future<model.UserModel> getUserDetails() async {
+   
 
     DocumentSnapshot documentSnapshot =
-        await _firestore.collection('akun').doc(currentUser.uid).get();
+        await _firestore.collection('akun').doc(user!.uid).get();
 
     return model.UserModel.fromSnap(documentSnapshot);
   }
@@ -98,5 +99,6 @@ class AuthMethods {
 
   Future<void> signOut() async {
     await _auth.signOut();
+    
   }
 }

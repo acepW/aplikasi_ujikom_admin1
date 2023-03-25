@@ -1,6 +1,7 @@
-
 import 'package:aplikasi_ujikom_admin/global_methods.dart';
 import 'package:aplikasi_ujikom_admin/model/user_model.dart';
+import 'package:aplikasi_ujikom_admin/screens/laporan_pengaduan.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
 
@@ -43,6 +45,7 @@ class _DetailAduanAdminState extends State<DetailAduanAdmin> {
   void _uploadTanggapan() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
+    
 
     if (isValid) {
       _formKey.currentState!.save();
@@ -67,8 +70,8 @@ class _DetailAduanAdminState extends State<DetailAduanAdmin> {
             .doc(_uuid)
             .set({
           'tanggapanId': _uuid,
-          'photoUrl': userModel.photoUrl,
-          'name': userModel.name,
+          'photoUrl':"",
+          'name': "Admin",
           'userId': userModel.uid,
           'tanggapan': _tanggapanController.text,
           'createdAt': DateTime.now(),
@@ -147,6 +150,49 @@ class _DetailAduanAdminState extends State<DetailAduanAdmin> {
               IconlyLight.arrowLeft2,
               color: Colors.black,
             )),
+        actions: [
+          IconButton(
+              onPressed: () {
+                printAduan().AduanPrint(
+                    widget.name,
+                    widget.tanggal,
+                    widget.status,
+                    widget.judul,
+                    widget.deskripsi,
+                    widget.imageUrl);
+              },
+              icon: Icon(
+                Icons.print,
+                color: Colors.black,
+              )),
+          IconButton(
+              onPressed: () async{
+                await QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.confirm,
+                            title: 'Yakin Hapus Aduan?',
+                            text: "",
+                            confirmBtnText: 'Yes',
+                            customAsset: "assets/error.gif",
+                            cancelBtnText: 'No',
+                            onConfirmBtnTap: () async {
+                              await FirebaseFirestore.instance
+                        .collection('aduan')
+                        .doc(widget.postId)
+                        .delete();
+
+                    return Navigator.pop(context);
+                            },
+                            confirmBtnColor: Colors.green,
+                          );
+                          return Navigator.pop(context);
+               
+              },
+              icon: Icon(
+                IconlyLight.delete,
+                color: Colors.black,
+              ))
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -161,40 +207,22 @@ class _DetailAduanAdminState extends State<DetailAduanAdmin> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                     Text("Ditulis oleh ${widget.name}",
+                      Text("Ditulis oleh ${widget.name}",
                           style: GoogleFonts.rubik(
                               textStyle: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold))),
-                                  Spacer(),
-                      IconButton(
-                          onPressed: () {
-                            GlobalMethods.warningDialog(
-                              context: context,
-                              subtitle: "Yakin menghapus Aduan?",
-                              title: "Hapus Aduan",
-                              fct: () async {
-                                await FirebaseFirestore.instance
-                                    .collection('aduan')
-                                    .doc(widget.postId)
-                                    .delete();
-
-                                return Navigator.pop(context);
-                              },
-                            );
-                          },
-                          icon: Icon(IconlyLight.delete))
                     ],
                   ),
                 ),
-               Container(
+                Container(
                   width: MediaQuery.of(context).size.width,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Pada ${ DateFormat.yMd().add_jm()
-                                                              .format(widget.tanggal)}",
+                      Text(
+                          "Pada ${DateFormat.yMd().add_jm().format(widget.tanggal)}",
                           style: GoogleFonts.rubik(
                               textStyle: const TextStyle(
                                   color: Colors.black,
@@ -225,50 +253,25 @@ class _DetailAduanAdminState extends State<DetailAduanAdmin> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       InkWell(
-                        onTap: () {
-                          GlobalMethods.warningDialog(
-                              title: "Tolak Aduan",
-                              subtitle: "Yakin Tolak Aduan?",
-                              fct: () async {
-                                try {
-                                  setState(() {
-                                    _isLoading = true;
-                                  });
-
-                                  await FirebaseFirestore.instance
-                                      .collection('aduan')
-                                      .doc(widget.postId)
-                                      .update({'status': "di tolak"});
-
-                                  Fluttertoast.showToast(
-                                    msg: "Update succefully",
-                                    toastLength: Toast.LENGTH_LONG,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 1,
-                                    // backgroundColor: ,
-                                    // textColor: ,
-                                    // fontSize: 16.0
-                                  );
-                                } on FirebaseException catch (error) {
-                                  GlobalMethods.errorDialog(
-                                      subtitle: '${error.message}',
-                                      context: context);
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                } catch (error) {
-                                  GlobalMethods.errorDialog(
-                                      subtitle: '$error', context: context);
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                } finally {
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                }
-                              },
-                              context: context);
+                        onTap: () async {
+                          await QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.confirm,
+                            title: 'Yakin Tolak Aduan?',
+                            text: "",
+                            confirmBtnText: 'Yes',
+                            customAsset: "assets/error.gif",
+                            cancelBtnText: 'No',
+                            onConfirmBtnTap: () async {
+                              await FirebaseFirestore.instance
+                                  .collection('aduan')
+                                  .doc(widget.postId)
+                                  .update({'status': "di tolak"});
+                              return Navigator.pop(context);
+                            },
+                            confirmBtnColor: Colors.green,
+                          );
+                          return Navigator.pop(context);
                         },
                         child: Container(
                           width: 100,
@@ -290,50 +293,24 @@ class _DetailAduanAdminState extends State<DetailAduanAdmin> {
                         width: 20,
                       ),
                       InkWell(
-                        onTap: () {
-                          GlobalMethods.warningDialog(
-                              title: "Verifikasi Aduan",
-                              subtitle: "Yakin Untuk Memferivikasi Aduan?",
-                              fct: () async {
-                                try {
-                                  setState(() {
-                                    _isLoading = true;
-                                  });
-
-                                  await FirebaseFirestore.instance
-                                      .collection('aduan')
-                                      .doc(widget.postId)
-                                      .update({'status': "di verifikasi"});
-
-                                  Fluttertoast.showToast(
-                                    msg: "Update succefully",
-                                    toastLength: Toast.LENGTH_LONG,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 1,
-                                    // backgroundColor: ,
-                                    // textColor: ,
-                                    // fontSize: 16.0
-                                  );
-                                } on FirebaseException catch (error) {
-                                  GlobalMethods.errorDialog(
-                                      subtitle: '${error.message}',
-                                      context: context);
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                } catch (error) {
-                                  GlobalMethods.errorDialog(
-                                      subtitle: '$error', context: context);
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                } finally {
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                }
-                              },
-                              context: context);
+                        onTap: () async {
+                          await QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.confirm,
+                            title: 'Yakin Verifikasi Aduan?',
+                            text: "",
+                            confirmBtnText: 'Yes',
+                            cancelBtnText: 'No',
+                            onConfirmBtnTap: () async {
+                              await FirebaseFirestore.instance
+                                  .collection('aduan')
+                                  .doc(widget.postId)
+                                  .update({'status': "di verifikasi"});
+                              return Navigator.pop(context);
+                            },
+                            confirmBtnColor: Colors.green,
+                          );
+                          return Navigator.pop(context);
                         },
                         child: Container(
                           width: 100,
@@ -358,55 +335,77 @@ class _DetailAduanAdminState extends State<DetailAduanAdmin> {
                   height: 25,
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            blurRadius: 10,
+                            offset: Offset(2, 6))
+                      ]),
+                  child: Column(
                     children: [
-                      Flexible(
-                        child: Text(widget.judul,
-                            textAlign: TextAlign.start,
-                            style: GoogleFonts.rubik(
-                                textStyle: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w500))),
+                      Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.purple.withOpacity(0.7),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(widget.judul,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.rubik(
+                                    textStyle: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold))),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-               SizedBox(height: 10,),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        child: Text(widget.deskripsi,
-                            style: GoogleFonts.rubik(
-                                textStyle: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400))),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 10, left: 10, right: 10, bottom: 10),
+                          child: Text(widget.deskripsi,
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 5,
+                              style: GoogleFonts.rubik(
+                                  textStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400))),
+                        ),
                       ),
+                      widget.imageUrl == ""
+                          ? Container()
+                          : Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 10, top: 20),
+                              child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Image.network(
+                                    widget.imageUrl,
+                                    fit: BoxFit.cover,
+                                  )),
+                            ),
                     ],
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                widget.imageUrl == ""
-                    ? Container()
-                    : Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 200,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: 
-                             Image.network(
-                          widget.imageUrl,
-                          fit: BoxFit.fill,
-                        )
-                      ),
+                Container(
+                  height: 5,
+                  color: Colors.purple,
+                ),
                 SizedBox(
                   height: 20,
                 ),

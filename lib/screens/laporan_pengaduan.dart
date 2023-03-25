@@ -1,182 +1,114 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
+import 'package:intl/intl.dart';
 
+class printAduan {
+  Future<void> AduanPrint(String nama, DateTime tanggal, String statusss,
+      String judul, String deskripsi, String imagee) async {
+    final doc = pw.Document();
 
-class LaporanPengaduan extends StatefulWidget {
-  const LaporanPengaduan({super.key});
-
-  @override
-  State<LaporanPengaduan> createState() => _LaporanPengaduanState();
-}
-
-class _LaporanPengaduanState extends State<LaporanPengaduan> {
-  late List<Perusahaan> perusahaan;
- List <Perusahaan> selectedRow = [];
- @override
-  void initState() {
-    // TODO: implement initState
-    perusahaan = Perusahaan.getPerusahaan();
-    super.initState();
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(height: 100,),
-          Expanded(
-            child: DataTable2(
-                columnSpacing: 6,
-                horizontalMargin: 6,
-                dataRowHeight: 30,
-                minWidth: 1000,
-                columns: [
-                  DataColumn2(
-                    label: Text(
-                      'No',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                    ),
-                    fixedWidth: 30
-                  ),
-                  DataColumn2(
-                    label: Center(
-                      child: Text('Judul',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          )),
-                    ),
-                    fixedWidth: 100
-                  ),
-                  DataColumn2(
-                    label: Center(
-                      child: Text('Nama',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          )),
-                    ),
-                    fixedWidth: 100
-                  ),
-                  DataColumn2(
-                    label: Center(
-                      child: Text('Status',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          )),
-                    ),
-                    fixedWidth: 100
-                  ),
-                  DataColumn2(
-                    label: Center(
-                      child: Text('Date',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          )),
-                    ),
-                    fixedWidth: 100
-                  ),
-                  
-                ],
-                rows:
-
-                _createRowsManufacture()
-                        ),
-          ),
-        ],
-      ),
-    );
-  }
- List<DataRow> _createRowsManufacture() {
-    return perusahaan
-        .map((perusahaan) => DataRow(
-          
-          cells: [
-              DataCell(Text(perusahaan.no,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 14.6,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ))),
-                  DataCell(Center(
-                    child: Text(perusahaan.perusahaanName,
-                        style: GoogleFonts.montserrat(
-                          fontSize: 14.6,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        )),
-                  )),
-                  DataCell(Center(
-                    child: Text(perusahaan.address,
-                        style: GoogleFonts.montserrat(
-                          fontSize: 14.6,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        )),
-                  )),
-                  DataCell(Center(
-                    child: Text(perusahaan.city,
-                        style: GoogleFonts.montserrat(
-                          fontSize: 14.6,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        )),
-                  )),
-                  DataCell(Center(
-                    child: Text(perusahaan.state,
-                        style: GoogleFonts.montserrat(
-                          fontSize: 14.6,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        )),
-                  )),
-                 
-            ]))
-        .toList();
+    doc.addPage(pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          return pw.Padding(
+              padding: pw.EdgeInsets.all(10),
+              child: pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  mainAxisAlignment: pw.MainAxisAlignment.start,
+                  children: [
+                    pw.Container(
+                        child: pw.Center(
+                            child: pw.Text("Laporan Pengaduan User",
+                                style: pw.TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: pw.FontWeight.bold)))),
+                    pw.SizedBox(height: 50),
+                    pw.Container(
+                        child: pw.Row(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            mainAxisAlignment: pw.MainAxisAlignment.start,
+                            children: [
+                          pw.Container(
+                            width: 100,
+                            child: pw.Text("Nama",
+                                style: pw.TextStyle(fontSize: 20)),
+                          ),
+                          pw.SizedBox(
+                            width: 30,
+                          ),
+                          pw.Text(nama, style: pw.TextStyle(fontSize: 20)),
+                        ])),
+                    pw.SizedBox(height: 30),
+                    pw.Container(
+                        child: pw.Row(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            mainAxisAlignment: pw.MainAxisAlignment.start,
+                            children: [
+                          pw.Container(
+                            width: 100,
+                            child: pw.Text("Tanggal",
+                                style: pw.TextStyle(fontSize: 20)),
+                          ),
+                          pw.SizedBox(
+                            width: 30,
+                          ),
+                          pw.Text(DateFormat.yMd().add_jm().format(tanggal),
+                              style: pw.TextStyle(fontSize: 20)),
+                        ])),
+                    pw.SizedBox(height: 30),
+                    pw.Container(
+                        child: pw.Row(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            mainAxisAlignment: pw.MainAxisAlignment.start,
+                            children: [
+                          pw.Container(
+                            width: 100,
+                            child: pw.Text("Status",
+                                style: pw.TextStyle(fontSize: 20)),
+                          ),
+                          pw.SizedBox(
+                            width: 30,
+                          ),
+                          pw.Text(statusss, style: pw.TextStyle(fontSize: 20)),
+                        ])),
+                    pw.SizedBox(height: 30),
+                    pw.Container(
+                        child: pw.Row(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            mainAxisAlignment: pw.MainAxisAlignment.start,
+                            children: [
+                          pw.Container(
+                            width: 100,
+                            child: pw.Text("Judul",
+                                style: pw.TextStyle(fontSize: 20)),
+                          ),
+                          pw.SizedBox(
+                            width: 30,
+                          ),
+                          pw.Text(judul, style: pw.TextStyle(fontSize: 20)),
+                        ])),
+                    pw.SizedBox(height: 30),
+                    pw.Container(
+                        child: pw.Row(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            mainAxisAlignment: pw.MainAxisAlignment.start,
+                            children: [
+                          pw.Container(
+                            width: 100,
+                            child: pw.Text("Deskripsi",
+                                style: pw.TextStyle(fontSize: 20)),
+                          ),
+                          pw.SizedBox(
+                            width: 30,
+                          ),
+                          pw.Text(deskripsi, style: pw.TextStyle(fontSize: 20)),
+                        ])),
+                    pw.SizedBox(height: 30),
+                  ])); // Center
+        }));
+    await Printing.layoutPdf(
+        onLayout: (PdfPageFormat format) async => doc.save());
   }
 }
-
-
-
-
-
-class Perusahaan {
-    final String no,perusahaanName,address,city,state,phone;
-
-    const Perusahaan({
-      required this.no,
-      required this.perusahaanName,
-      required this.address,
-      required this.city,
-      required this.state,
-      required this.phone
-     
-    });
-    
-
-    static List<Perusahaan> getPerusahaan(){
-      return <Perusahaan>[
-        Perusahaan(no: "1", perusahaanName: "Perusahaan",address: "Addreas" ,city: "City",state: "State",phone: "Phone"),
-        Perusahaan(no: "2", perusahaanName: "Perusahaan",address: "Addreas" ,city: "City",state: "State",phone: "Phone" ),
-        Perusahaan(no: "3", perusahaanName: "Perusahaan", address: "Addreas" ,city: "City",state: "State",phone: "Phone" ),
-        Perusahaan(no: "4", perusahaanName: "Perusahaan", address: "Addreas" ,city: "City",state: "State",phone: "Phone" ),
-        Perusahaan(no: "5", perusahaanName: "Perusahaan",address: "Addreas" ,city: "City",state: "State",phone: "Phone" )
-      ];
-    }
-  }

@@ -1,4 +1,4 @@
-import 'package:aplikasi_ujikom_admin/btm_bar.dart';
+
 import 'package:aplikasi_ujikom_admin/const/firebase_const.dart';
 import 'package:aplikasi_ujikom_admin/global_methods.dart';
 import 'package:aplikasi_ujikom_admin/provider/user_provider.dart';
@@ -87,11 +87,17 @@ class _LoginScreensState extends State<LoginScreens> {
                   left: 15, right: 15, top: 70, bottom: 10),
               child: Column(
                 children: [
+                  Text("Aplikasi Admin Pengaduan Sekolah",
+                      style: GoogleFonts.rubik(
+                          textStyle: const TextStyle(
+                              color: Colors.purple,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500))),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     height: 200,
                     child: Image.asset(
-                      'assets/images/welcome.jpg',
+                      'assets/images/pengaduan.jpg',
                       fit: BoxFit.contain,
                     ),
                   ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickalert/quickalert.dart';
 
 class DaftarPetugas extends StatefulWidget {
   const DaftarPetugas({super.key});
@@ -39,10 +40,12 @@ class _DaftarPetugasState extends State<DaftarPetugas> {
                     padding: const EdgeInsets.only(top: 200),
                     child: Center(
                       child: Container(
-                                  width: 200,
-                                  height: 200,
-                                  decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/empty.png'))),
-                                 ),
+                        width: 200,
+                        height: 200,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/empty.png'))),
+                      ),
                     ),
                   );
                 }
@@ -59,107 +62,136 @@ class _DaftarPetugasState extends State<DaftarPetugas> {
                       String role = snapshot.data.docs[index]['role'];
 
                       return Padding(
-                        padding: const EdgeInsets.only(top: 5,left: 10,right: 10),
-                        child: InkWell(
-                            onTap: () {},
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 7),
-                              child: Container(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    photoUrl == ""
-                                        ? CircleAvatar(
-                                            radius: 25,
-                                            backgroundImage: NetworkImage(
-                                                'https://i.stack.imgur.com/l60Hf.png'),
-                                          )
-                                        : CircleAvatar(
-                                            radius: 25,
-                                            backgroundColor: Colors.grey,
-                                            backgroundImage:
-                                                NetworkImage(photoUrl)),
-                                    Expanded(
-                                      child: Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Flexible(
-                                                      child: Text(email,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: GoogleFonts.poppins(
-                                                              textStyle: const TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold))),
+                        padding: const EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(width: 1, color: Colors.purple),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.5),
+                                    blurRadius: 10,
+                                    offset: Offset(2, 2))
+                              ]),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 5, left: 10, right: 10),
+                            child: InkWell(
+                                onTap: () {},
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 7),
+                                  child: Container(
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        photoUrl == ""
+                                            ? CircleAvatar(
+                                                radius: 25,
+                                                backgroundImage: NetworkImage(
+                                                    'https://i.stack.imgur.com/l60Hf.png'),
+                                              )
+                                            : CircleAvatar(
+                                                radius: 25,
+                                                backgroundColor: Colors.grey,
+                                                backgroundImage:
+                                                    NetworkImage(photoUrl)),
+                                        Expanded(
+                                          child: Container(
+                                            width:
+                                                MediaQuery.of(context).size.width,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    width: MediaQuery.of(context)
+                                                        .size
+                                                        .width,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.start,
+                                                      children: [
+                                                        Flexible(
+                                                          child: Text(email,
+                                                              textAlign: TextAlign
+                                                                  .center,
+                                                              style: GoogleFonts.poppins(
+                                                                  textStyle: const TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold))),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Flexible(
-                                                      child: Text(name,
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: GoogleFonts.poppins(
-                                                              textStyle: const TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400))),
+                                                  ),
+                                                  Container(
+                                                    width: MediaQuery.of(context)
+                                                        .size
+                                                        .width,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.start,
+                                                      children: [
+                                                        Flexible(
+                                                          child: Text(name,
+                                                              textAlign:
+                                                                  TextAlign.start,
+                                                              style: GoogleFonts.poppins(
+                                                                  textStyle: const TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400))),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                        IconButton(
+                                            onPressed: () {
+                                              QuickAlert.show(
+                                                context: context,
+                                                type: QuickAlertType.confirm,
+                                                text: 'Cabut Izin Petugas?',
+                                                confirmBtnText: 'Yes',
+                                                cancelBtnText: 'No',
+                                                customAsset: "assets/error.gif",
+                                                onConfirmBtnTap: () async {
+                                                  await FirebaseFirestore.instance
+                                                      .collection('akun')
+                                                      .doc(id)
+                                                      .update({'role': 'user'});
+                      
+                                                  return Navigator.pop(context);
+                                                },
+                                                confirmBtnColor: Colors.green,
+                                              );
+                                            },
+                                            icon: Icon(Icons.remove_circle))
+                                      ],
                                     ),
-                                    IconButton(onPressed: (){
-                                      GlobalMethods.warningDialog(title: "Cabut Izin Petugas?", subtitle: "Yakin Mencabut Izin Petugas?", fct:  () async {
-                                await FirebaseFirestore.instance
-                                    .collection('akun')
-                                    .doc(id)
-                                    .update({
-                                      'role': 'user'
-                                    });
-
-                               
-                              }, context: context);
-                                    }, icon: Icon(Icons.remove_circle))
-                                  ],
-                                ),
-                              ),
-                            )),
+                                  ),
+                                )),
+                          ),
+                        ),
                       );
                     });
               }
