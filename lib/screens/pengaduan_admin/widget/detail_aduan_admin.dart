@@ -207,12 +207,22 @@ class _DetailAduanAdminState extends State<DetailAduanAdmin> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Ditulis oleh ${widget.name}",
-                          style: GoogleFonts.rubik(
-                              textStyle: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold))),
+                      Container(
+                        width: 250,
+
+                        child: Row(
+                          children: [
+                            Flexible(
+                              child: Text("Ditulis oleh ${widget.name}",
+                                  style: GoogleFonts.rubik(
+                                      textStyle: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold))),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -372,8 +382,7 @@ class _DetailAduanAdminState extends State<DetailAduanAdmin> {
                               top: 10, left: 10, right: 10, bottom: 10),
                           child: Text(widget.deskripsi,
                               textAlign: TextAlign.start,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 5,
+                              
                               style: GoogleFonts.rubik(
                                   textStyle: const TextStyle(
                                       color: Colors.black,

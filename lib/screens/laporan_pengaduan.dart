@@ -9,10 +9,10 @@ class printAduan {
       String judul, String deskripsi, String imagee) async {
     final doc = pw.Document();
 
-    doc.addPage(pw.Page(
+    doc.addPage(pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
-          return pw.Padding(
+          return[ pw.Padding(
               padding: pw.EdgeInsets.all(10),
               child: pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -103,10 +103,11 @@ class printAduan {
                           pw.SizedBox(
                             width: 30,
                           ),
-                          pw.Text(deskripsi, style: pw.TextStyle(fontSize: 20)),
+                          pw.Flexible(child: pw.Text(deskripsi, style: pw.TextStyle(fontSize: 20)),)
+                          
                         ])),
                     pw.SizedBox(height: 30),
-                  ])); // Center
+                  ]))]; // Center
         }));
     await Printing.layoutPdf(
         onLayout: (PdfPageFormat format) async => doc.save());

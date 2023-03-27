@@ -75,7 +75,7 @@ class _DaftarPetugasState extends State<DaftarPetugas> {
                               ]),
                           child: Padding(
                             padding: const EdgeInsets.only(
-                                top: 5, left: 10, right: 10),
+                                 left: 10, right: 10),
                             child: InkWell(
                                 onTap: () {},
                                 child: Padding(
